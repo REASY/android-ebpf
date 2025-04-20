@@ -28,7 +28,7 @@ repo sync has finished successfully.
 ### Initialize Intel libhoudini
 [libhoudini](https://commonsware.com/blog/2013/11/21/libhoudini-what-it-means-for-developers.html) is a proprietary ARM translation layer for x86-powered Android devices. It allows an app that has NDK binaries for ARM, but not x86, to still run on x86 hardware, albeit not as quickly as it would with native x86 binaries.
 ```
-aosp@29b675cef2f2:/aosp$ git clone --single-branch --branch wsa-12.1 shttps://github.com/supremegamers/vendor_intel_proprietary_houdini vendor/intel/proprietary/houdini
+aosp@29b675cef2f2:/aosp$ git clone --single-branch --branch wsa-12.1 https://github.com/supremegamers/vendor_intel_proprietary_houdini vendor/intel/proprietary/houdini
 Cloning into 'vendor/intel/proprietary/houdini'...
 remote: Enumerating objects: 1636, done.
 remote: Counting objects: 100% (274/274), done.
@@ -36,7 +36,8 @@ remote: Compressing objects: 100% (160/160), done.
 remote: Total 1636 (delta 144), reused 114 (delta 114), pack-reused 1362 (from 1)
 Receiving objects: 100% (1636/1636), 149.00 MiB | 13.47 MiB/s, done.
 Resolving deltas: 100% (702/702), done.
-aosp@29b675cef2f2:/aosp$ 
+07:56:26
+
 ```
 ### Setup FOSS apps for x86/x86_64
 ```console
