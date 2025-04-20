@@ -1,0 +1,19 @@
+Subject: [PATCH] fix: Increase `BOARD_SYSTEMIMAGE_PARTITION_SIZE` to 8_000_000_000
+---
+Index: BoardConfig.mk
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/BoardConfig.mk b/BoardConfig.mk
+--- a/BoardConfig.mk	(revision 0dc37f41253db9599e7725f2dedc1716ec1a614d)
++++ b/BoardConfig.mk	(date 1745070944032)
+@@ -178,7 +178,7 @@
+ BOARD_VENDOR_SEPOLICY_DIRS += device/generic/common/sepolicy/vendor
+ 
+ BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
+-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 5000000000
++BOARD_SYSTEMIMAGE_PARTITION_SIZE := 8000000000
+ BOARD_RECOVERYIMAGE_PARTITION_SIZE := 100663296
+ TARGET_USERIMAGES_SPARSE_EXT_DISABLED := true
+ BOARD_USES_OEMIMAGE := true

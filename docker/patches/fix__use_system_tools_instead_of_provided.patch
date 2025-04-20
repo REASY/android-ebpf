@@ -1,0 +1,36 @@
+Subject: [PATCH] fix: use system tools instead of provided
+---
+Index: kernel/gen_kheaders.sh
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/kernel/gen_kheaders.sh b/kernel/gen_kheaders.sh
+--- a/kernel/gen_kheaders.sh	(revision 464e37265b7f8061dfa65f7139c84f6aa345d2d3)
++++ b/kernel/gen_kheaders.sh	(date 1741700516876)
+@@ -73,7 +73,7 @@
+ 		cd $srctree
+ 		for f in $dir_list
+ 			do find "$f" -name "*.h";
+-		done | cpio --quiet -L -pd $cpio_dir
++		done | /usr/bin/cpio --quiet -L -pd $cpio_dir
+ 	)
+ fi
+ 
+@@ -81,14 +81,17 @@
+ # of tree builds having stale headers in srctree. Just silence CPIO for now.
+ for f in $dir_list;
+ 	do find "$f" -name "*.h";
+-done | cpio --quiet -L -pdu $cpio_dir >/dev/null 2>&1
++done | /usr/bin/cpio --quiet -L -pdu $cpio_dir >/dev/null 2>&1
+ 
+ # Remove comments except SDPX lines
+ find $cpio_dir -type f -print0 |
+ 	xargs -0 -P8 -n1 perl -pi -e 'BEGIN {undef $/;}; s/\/\*((?!SPDX).)*?\*\///smg;'
+ 
+ # Create archive and try to normalize metadata for reproducibility.
+-tar "${KBUILD_BUILD_TIMESTAMP:+--mtime=$KBUILD_BUILD_TIMESTAMP}" \
++/usr/bin/tar "${KBUILD_BUILD_TIMESTAMP:+--mtime=$KBUILD_BUILD_TIMESTAMP}" \
+     --exclude=".__afs*" --exclude=".nfs*" \
+     --owner=0 --group=0 --sort=name --numeric-owner --mode=u=rw,go=r,a+X \
+     -I $XZ -cf $tarfile -C $cpio_dir/ . > /dev/null

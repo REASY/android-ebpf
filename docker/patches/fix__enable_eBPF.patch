@@ -1,0 +1,33 @@
+Subject: [PATCH] fix: enable eBPF
+---
+Index: arch/x86/configs/android-x86_64_defconfig
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/arch/x86/configs/android-x86_64_defconfig b/arch/x86/configs/android-x86_64_defconfig
+index 212a600d7f5f..1915d8308618 100644
+--- a/arch/x86/configs/android-x86_64_defconfig
++++ b/arch/x86/configs/android-x86_64_defconfig
+@@ -10592,7 +10592,6 @@ CONFIG_DEBUG_MISC=y
+ # Compile-time checks and compiler options
+ #
+ CONFIG_AS_HAS_NON_CONST_LEB128=y
+-CONFIG_DEBUG_INFO_NONE=y
+ # CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT is not set
+ # CONFIG_DEBUG_INFO_DWARF4 is not set
+ # CONFIG_DEBUG_INFO_DWARF5 is not set
+@@ -10945,3 +10944,13 @@ CONFIG_ARCH_USE_MEMTEST=y
+ #
+ # end of Rust hacking
+ # end of Kernel hacking
++
++# eBPF
++CONFIG_DEBUG_INFO_NONE=n
++CONFIG_DEBUG_INFO=y
++CONFIG_DEBUG_INFO_DWARF5=y
++CONFIG_DEBUG_INFO_BTF=y
++CONFIG_DEBUG_INFO_BTF_MODULES=y
++CONFIG_HEADERS_INSTALL=y
++CONFIG_FTRACE_SYSCALLS=y
++CONFIG_IKHEADERS=y

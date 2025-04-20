@@ -1,0 +1,5 @@
+# Place any git configuration you want included in the docker image
+# in this file.
+[user]
+    name = Android Dev
+    email = noemail@gmail.com
