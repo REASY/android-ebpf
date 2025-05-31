@@ -1,0 +1,14 @@
+#!/bin/sh
+
+spath=$( cd "$(dirname "$0")" ; pwd -P )
+
+$spath/device-umount-all
+
+mount | grep debian
+
+if [ "$?" = "0" ]; then
+	echo "$spath/debian already exists, please check mount!"
+else
+	rm -rf $spath && echo "cleanup eadb succeed!"
+fi
+
