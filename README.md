@@ -110,10 +110,15 @@ sudo ./dev/prepare-tmpfs.sh
 ## Build the base system and install LLVM 18
 
 ```bash
-sudo ./dev/create-base.sh /mnt/build-tmpfs/ebpf-debian &&
-  sudo cp dev/compile-ebpf.sh /mnt/build-tmpfs/ebpf-debian &&
-  sudo cp dev/install-llvm-18.sh /mnt/build-tmpfs/ebpf-debian && 
-  sudo chroot /mnt/build-tmpfs/ebpf-debian /install-llvm-18.sh
+sudo ./dev/create-base.sh /mnt/build-tmpfs/debian &&
+  sudo cp dev/compile-ebpf.sh /mnt/build-tmpfs/debian &&
+  sudo cp dev/install-llvm-18.sh /mnt/build-tmpfs/debian && 
+  sudo cp assets/bashrc /mnt/build-tmpfs/debian/.bashrc && 
+  sudo cp assets/get_kvers.sh /mnt/build-tmpfs/debian &&
+  sudo chroot /mnt/build-tmpfs/debian /install-llvm-18.sh && 
+  sudo chroot /mnt/build-tmpfs/debian rm /bin/sh &&
+  sudo chroot /mnt/build-tmpfs/debian ln -s /bin/bash /bin/sh &&
+  sudo ./dev/cleanup.sh /mnt/build-tmpfs/debian
 ```
 
 ## Build eBPF tooling on running Android
@@ -124,5 +129,17 @@ sudo chroot /mnt/build-tmpfs/ebpf-debian /compile-ebpf.sh
 ## Clone and install eBPF stuff
 
 ```
-sudo tar -cvf ebpf-debian-dev-base.tar.gz ebpf-debian-dev-base
+sudo tar cvf /home/user/debian.tar.gz -C /mnt/build-tmpfs/ .
+
+mkdir -p /data/eadb &&
+    mv /data/local/tmp/assets/* /data/eadb &&
+    mv /data/local/tmp/deb.tar.gz /data/eadb/deb.tar.gz &&
+    rm -r /data/local/tmp/assets &&
+    chmod +x /data/eadb/device-*
+```
+
+
+### BlissOS params
+```
+DEBUG_VSOCK=1 androidboot.insecure_adb=1
 ```

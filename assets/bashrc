@@ -1,5 +1,5 @@
 # set PATH for Linux
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/share/bcc/tools/
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export TMPDIR=/tmp/
 
 homedir=$( getent passwd "$USER" | cut -d: -f6 )

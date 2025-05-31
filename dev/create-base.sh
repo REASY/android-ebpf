@@ -2,8 +2,8 @@
 set -euo pipefail
 
 # Default values
-DEFAULT_TARGET_PATH="$HOME/ebpf-debian-dev-base"
-ARCH="arm64"
+DEFAULT_TARGET_PATH="$HOME/debian"
+ARCH="amd64"
 MIRROR="http://localhost:3142/ftp.debian.org/debian/"
 RELEASE="bullseye"
 VARIANT="minbase"
