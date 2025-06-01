@@ -39,8 +39,6 @@ PACKAGES=(
     libpcap-dev
     libzstd-dev
     lldb
-    luajit
-    libluajit-5.1-dev
     net-tools
     pkg-config
     procps
