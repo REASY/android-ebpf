@@ -48,6 +48,10 @@ do_mounts()
 		mount --bind /dev/binderfs/ debian/dev/binderfs
 	fi
 
+    if [ -d /lib/modules/ ]; then
+        mkdir -p debian/lib/modules
+        mount --bind /lib/modules/ debian/lib/modules
+    fi
 }
 
 mount | grep debian > /dev/null
