@@ -1,10 +1,11 @@
 #!/bin/bash
+
 set -euo pipefail
 
 mkdir ~/code && cd ~/code
 
 echo "Cloning and building bcc"
-git clone --depth 1 --recurse-submodules https://github.com/iovisor/bcc.git --branch v0.34.0 --single-branch && cd bcc
+git clone --depth 1 --recurse-submodules https://github.com/iovisor/bcc.git --branch v0.35.0 --single-branch && cd bcc
 mkdir build && cd build &&
  cmake -DLLVM_CONFIG=/usr/lib/llvm-18/bin/llvm-config \
      -DLLVM_DIR=/usr/lib/llvm-18/lib/cmake/llvm/ \
@@ -34,7 +35,7 @@ cd ~/code
 echo "Cloning and building libbpf"
 git clone --depth 1 https://github.com/libbpf/libbpf.git --branch v1.5.0 --single-branch && cd libbpf
 cd src && make -j$(nproc) && make install && make install_uapi_headers
-ln -s /usr/lib64/libbpf.so.1.5.0 /usr/lib/aarch64-linux-gnu/libbpf.so.1
+ln -s /usr/lib64/libbpf.so.1.5.0 /usr/lib/x86_64-linux-gnu/libbpf.so.1
 
 
 cd ~/code
