@@ -10,7 +10,7 @@ is [docker/android_builder.dockerfile](docker/android_builder.dockerfile) that h
 build [BlissOS 15.x](https://docs.blissos.org/development/build-bliss-os-15.x/).
 
 ```console
-sudo docker build -f docker/android_builder.dockerfile  -t android_builder:0.1 docker
+sudo docker build -f docker/android_builder.dockerfile  -t android_builder:24.04 docker
 ```
 
 ## Initializing BlissOS repo
@@ -123,13 +123,16 @@ sudo ./dev/create-base.sh /mnt/build-tmpfs/debian &&
 
 ## Build eBPF tooling on running Android
 ```bash
-sudo chroot /mnt/build-tmpfs/ebpf-debian /compile-ebpf.sh
+sudo chroot /mnt/build-tmpfs/debian /compile-ebpf.sh
 ```
 
-## Clone and install eBPF stuff
+## Prepare a tar archive and push it to the device
 
 ```
 sudo tar cvf /home/user/debian.tar.gz -C /mnt/build-tmpfs/ .
+adb -s vsock:3:5555 push assets /data/local/tmp/assets
+adb -s vsock:3:5555 push ~/debian.tar.gz /data/local/tmp/deb.tar.gz
+```
 
 mkdir -p /data/eadb &&
     mv /data/local/tmp/assets/* /data/eadb &&
@@ -143,3 +146,13 @@ mkdir -p /data/eadb &&
 ```
 DEBUG_VSOCK=1 androidboot.insecure_adb=1
 ```
+
+### When build of OS fails for recoverable reasons
+Remove out/target/product/
+```console
+rm -rf out/target/product/*
+```
+
+### termux su path is /system/bin/su
+
+https://discord.com/channels/795625509575720980/795702378753818643/1294952224321044590
