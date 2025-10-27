@@ -35,8 +35,13 @@ cd ~/code
 echo "Cloning and building libbpf"
 git clone --depth 1 https://github.com/libbpf/libbpf.git --branch v1.5.0 --single-branch && cd libbpf
 cd src && make -j$(nproc) && make install && make install_uapi_headers && make clean
-ln -s /usr/lib64/libbpf.so.1.5.0 /usr/lib/x86_64-linux-gnu/libbpf.so.1
-ln -s /usr/lib64/libbpf.so.1.5.0 /usr/lib/aarch64-linux-gnu/libbpf.so.1
+
+ARCH=$(uname -m)
+if [ "$ARCH" = "x86_64" ]; then
+    ln -s /usr/lib64/libbpf.so.1.5.0 /usr/lib/x86_64-linux-gnu/libbpf.so.1
+elif [ "$ARCH" = "aarch64" ]; then
+    ln -s /usr/lib64/libbpf.so.1.5.0 /usr/lib/aarch64-linux-gnu/libbpf.so.1
+fi
 
 cd ~/code
 echo "Cloning and building bpftrace"
