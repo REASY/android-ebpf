@@ -16,7 +16,7 @@ mkdir build && cd build &&
      -DCMAKE_C_FLAGS="$(llvm-config-18 --cppflags)" \
      -DSYSTEM_INCLUDE_PATHS=none \
      -DPYTHON_CMD=python3 .. &&
-   make -j$(nproc) && make install &&
+   make -j$(nproc) && make install && make clean &&
    pushd src/python/ && make -j$(nproc) && make install && make clean && popd
 
 # Make Python3 as /usr/bin/python
