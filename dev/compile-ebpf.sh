@@ -17,7 +17,7 @@ mkdir build && cd build &&
      -DSYSTEM_INCLUDE_PATHS=none \
      -DPYTHON_CMD=python3 .. &&
    make -j$(nproc) && make install &&
-   pushd src/python/ && make -j$(nproc) && make install && popd
+   pushd src/python/ && make -j$(nproc) && make install && make clean && popd
 
 # Make Python3 as /usr/bin/python
 ln -s $(which python3) /usr/bin/python
@@ -26,7 +26,7 @@ cd ~/code
 
 echo "Cloning and building bpftool"
 git clone --depth 1 --recurse-submodules https://github.com/libbpf/bpftool.git --branch v7.5.0 --single-branch && cd bpftool
-cd src && make -j$(nproc) install
+cd src && make -j$(nproc) install && make clean
 
 
 cd ~/code
@@ -34,7 +34,7 @@ cd ~/code
 #
 echo "Cloning and building libbpf"
 git clone --depth 1 https://github.com/libbpf/libbpf.git --branch v1.5.0 --single-branch && cd libbpf
-cd src && make -j$(nproc) && make install && make install_uapi_headers
+cd src && make -j$(nproc) && make install && make install_uapi_headers && make clean
 ln -s /usr/lib64/libbpf.so.1.5.0 /usr/lib/x86_64-linux-gnu/libbpf.so.1
 ln -s /usr/lib64/libbpf.so.1.5.0 /usr/lib/aarch64-linux-gnu/libbpf.so.1
 
@@ -50,7 +50,7 @@ mkdir build && cd build &&
      -DCMAKE_CXX_FLAGS="-I/usr/lib/llvm-18/include -std=c++17 -funwind-tables -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS"  \
      -DCMAKE_C_FLAGS="$(llvm-config-18 --cppflags)" \
      -DSYSTEM_INCLUDE_PATHS=none .. &&
-  make -j$(nproc) && make install
+  make -j$(nproc) && make install && make clean
 
 # Check the binary can be executed
 bpftool --version
